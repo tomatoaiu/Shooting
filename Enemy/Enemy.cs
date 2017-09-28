@@ -12,9 +12,9 @@ using UnityEngine;
 public class Enemy : MonoBehaviour {
 
 	public string enemyName = "unknown"; // 名前
-	public int enemyHitPoint = 1; // HP
-	public float enemySpeed = 1f; // スピード
-	public int enemyScorePoint = 1; // スコアポイント
+	public int enemyHitPoint{get; set;} // HP
+	public float enemySpeed{get; set;} // スピード
+	public int enemyScorePoint{get; set;} // スコアポイント
 
 	/// <summary>
 	/// 秒数、同時か、何個まで同時うつか1ならshooterは2つ
@@ -48,10 +48,11 @@ public class Enemy : MonoBehaviour {
 		GetComponent<Rigidbody2D> ().velocity = direction * enemySpeed;
 	}
 
+	// 自分の弾に敵が当たった時の処理
 	protected void OnTriggerEnter2D(Collider2D c){
 		if (c.tag == "PlayerBullet") {
-			Destroy (c.gameObject);
-			Destroy (gameObject);
+			Destroy (c.gameObject); // 弾の削除
+			Destroy (gameObject); // 自分自身の削除
 		}
 	}
 

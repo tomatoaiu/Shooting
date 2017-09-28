@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Wave : MonoBehaviour {
 
 	[System.Serializable]
-	public struct Enemeys{
+	public struct Enemeies{
 		public GameObject enemy; // 敵オブジェクト
 		public int hp; // 敵HP
 		public int sp; // 敵スコアポイント
@@ -13,9 +14,9 @@ public class Wave : MonoBehaviour {
 		public Vector3 position; // 敵の生成位置
 		public Vector3 rotation; // 敵の生成角度
 	}
-	public List<Enemeys> enemys = new List<Enemeys> ();
+	public List<Enemeies> enemies = new List<Enemeies> ();
 
-	private bool finishedCloned; // 
+	private bool finishedCloned; 
 
 	/// <summary>
 	/// 初期化が完了しており、子供のenemyが全部いなくなったら自分を消す
@@ -31,7 +32,7 @@ public class Wave : MonoBehaviour {
 	/// Enemeysからnullを除外
 	/// </summary>
 	private void OmitNullFromEnemys(){
-		enemys.RemoveAll (n => n.enemy == null);
+		enemies.RemoveAll (n => n.enemy == null);
 	}
 
 	/// <summary>
@@ -39,7 +40,7 @@ public class Wave : MonoBehaviour {
 	/// </summary>
 	/// <returns><c>true</c>, if enemies was created, <c>false</c> otherwise.</returns>
 	private bool CreateEnemies(){
-		foreach (var e in enemys) {
+		foreach (var e in enemies) {
 			Vector3 enemyRotaion = e.enemy.transform.rotation.eulerAngles;
 			GameObject _e = Instantiate (e.enemy,e.position + transform.position,
 				Quaternion.Euler(enemyRotaion + e.rotation),transform) as GameObject;

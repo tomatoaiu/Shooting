@@ -42,7 +42,7 @@ public class Emitter : MonoBehaviour {
 
 			float duration = 0; // 時間を計測
 
-			var w = waves[current]; // 毎回書くと長いからsと表す
+			var w = waves[current]; // 毎回書くと長いからwと表す
 
 			if (w.isSimultaneous) { // 今装備されているwaveが同時の場合
 				for (int i = current; i < w.howMany + 1; i++) { // 同時に何個waveを使いたいか

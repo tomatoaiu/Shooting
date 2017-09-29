@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Enemyクラス
@@ -15,6 +16,7 @@ public class Enemy : MonoBehaviour {
 	public int enemyHitPoint{get; set;} // HP
 	public float enemySpeed{get; set;} // スピード
 	public int enemyScorePoint{get; set;} // スコアポイント
+	public GameObject scoreManager; // scorepointのtext
 
 	/// <summary>
 	/// 秒数、同時か、何個まで同時うつか1ならshooterは2つ
@@ -38,8 +40,6 @@ public class Enemy : MonoBehaviour {
 	private int currentShooters;
 	private List<GameObject> usingShooter = new List<GameObject>();
 
-//	public static Enemy Instatiate(Enemy prefab, )
-
 	protected void Move(){
 		EnemyMove (transform.up); // 前に進む
 	}
@@ -51,6 +51,9 @@ public class Enemy : MonoBehaviour {
 	// 自分の弾に敵が当たった時の処理
 	protected void OnTriggerEnter2D(Collider2D c){
 		if (c.tag == "PlayerBullet") {
+			// scorepointの計算
+			scoreManager.GetComponent<ScoreManager> ().SetText(enemyScorePoint);
+
 			Destroy (c.gameObject); // 弾の削除
 			Destroy (gameObject); // 自分自身の削除
 		}
@@ -99,7 +102,7 @@ public class Enemy : MonoBehaviour {
 		}
 	}
 
-	protected void InitShooter(){
+	protected void UpdateShooterTransform(){
 		foreach (var s in shooterOptions) {
 			s.shooter.transform.position = transform.position;
 			if (s.angle >= 0) {
@@ -113,14 +116,15 @@ public class Enemy : MonoBehaviour {
 
 	void Start () {
 		currentShooters = 0;
-		InitShooter ();
+		UpdateShooterTransform ();
 		if (shooterOptions.Length > 0) { // シューターが一つでもアタッチされているなら
 			StartCoroutine (SwitchShooter (currentShooters));
 		}
+		scoreManager = GameObject.Find ("Canvas");
 	}
 
 	void Update () {
 		Move ();
-		InitShooter ();
+		UpdateShooterTransform ();
 	}
 }

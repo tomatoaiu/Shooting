@@ -30,16 +30,18 @@ public class TitleEvent : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 		switch (imageType) {
 
 		case Imagetype.Start:
-			SceneManager.LoadScene (sceneName);
+			SceneManager.LoadScene (sceneName); // sceneName Main
 			break;
 
 		case Imagetype.Continue:
+			SceneManager.LoadScene (sceneName); // sceneName Menu
 			break;
 
 		case Imagetype.Config:
 			break;
 
 		case Imagetype.Quit:
+			Application.Quit (); // game 終了
 			break;
 		}
 

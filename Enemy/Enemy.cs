@@ -18,6 +18,8 @@ public class Enemy : MonoBehaviour {
 	public int enemyScorePoint{get; set;} // スコアポイント
 	public GameObject scoreManager; // scorepointのtext
 
+	public Color color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+
 	/// <summary>
 	/// 秒数、同時か、何個まで同時うつか1ならshooterは2つ
 	/// </summary>
@@ -39,6 +41,24 @@ public class Enemy : MonoBehaviour {
 
 	private int currentShooters;
 	private List<GameObject> usingShooter = new List<GameObject>();
+
+	void Start () {
+		currentShooters = 0;
+		UpdateShooterTransform ();
+		if (shooterOptions.Length > 0) { // シューターが一つでもアタッチされているなら
+			StartCoroutine (SwitchShooter (currentShooters));
+		}
+		scoreManager = GameObject.Find ("Canvas");
+
+		// 元の画像の赤色のデータのみで表示される。
+		this.GetComponent<SpriteRenderer>().color = color;
+	}
+
+	void Update () {
+		Move ();
+		UpdateShooterTransform ();
+		this.GetComponent<SpriteRenderer>().color = color;
+	}
 
 	protected void Move(){
 		EnemyMove (transform.up); // 前に進む
@@ -112,19 +132,5 @@ public class Enemy : MonoBehaviour {
 			}
 
 		}
-	}
-
-	void Start () {
-		currentShooters = 0;
-		UpdateShooterTransform ();
-		if (shooterOptions.Length > 0) { // シューターが一つでもアタッチされているなら
-			StartCoroutine (SwitchShooter (currentShooters));
-		}
-		scoreManager = GameObject.Find ("Canvas");
-	}
-
-	void Update () {
-		Move ();
-		UpdateShooterTransform ();
 	}
 }

@@ -7,16 +7,22 @@ public class Me : Unit {
 	protected bool hiding; // ユニットが画面外にいるか
 	protected Vector3 mePostion; // 自分の初期位置
 
+	public Color color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+		
 	// Use this for initialization
 	protected void Start () {
 		hiding = false;
 		rb = GetComponent<Rigidbody2D>();
 		StartCoroutine ("PlayerAttack");
 		mePostion = transform.position;
+		// 元の画像の赤色のデータのみで表示される。
+		this.GetComponent<SpriteRenderer>().color = color;
 	}
 	
 	// Update is called once per frame
 	protected void Update () {
+
+		this.GetComponent<SpriteRenderer>().color = color;
 		
 		PlayerMove ();
 

@@ -23,6 +23,7 @@ public class Me2 : Me {
 
 	void OnTriggerEnter2D(Collider2D c){
 		if(c.tag == "EnemyBullet" && !hiding){
+			health -= 1;
 			Destroy (c.gameObject);
 			Destroy (gameObject);
 		}

@@ -10,6 +10,7 @@ using UnityEngine;
 public class Unit : MonoBehaviour {
 
 	public float speed; // プレイヤーの移動スピード
+	public int health; // プレイヤーの体力
 	public float shotDelay;
 	protected Rigidbody2D rb;
 	public GameObject bullet; // プレイヤーの弾プレファブ

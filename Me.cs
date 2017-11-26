@@ -45,6 +45,10 @@ public class Me : Unit {
 		while (true) {
 			if (Input.GetKey(KeyCode.K)) {
 				Shot (transform);
+
+				// sound
+				AudioSource audioSource = gameObject.GetComponent<AudioSource>();
+				audioSource.PlayOneShot(audioSource.clip);
 			}
 			yield return new WaitForSeconds (shotDelay);
 		}

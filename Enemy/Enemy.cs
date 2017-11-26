@@ -74,6 +74,11 @@ public class Enemy : MonoBehaviour {
 			// scorepointの計算
 			scoreManager.GetComponent<ScoreManager> ().SetText(enemyScorePoint);
 
+			// sound
+			AudioSource audioSource = gameObject.GetComponent<AudioSource>();
+			audioSource.PlayOneShot(audioSource.clip);
+
+
 			Destroy (c.gameObject); // 弾の削除
 			Destroy (gameObject); // 自分自身の削除
 		}
